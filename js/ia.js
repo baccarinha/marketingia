@@ -12,7 +12,7 @@ const MOCK_SUGESTOES = [
     resultado: "Estimativa: 180–320 leads | 40–70 conversões | ROI ~140%",
     urgencia: "Alta",
     urgenciaCor: "#EF4444",
-  }
+  },
   {
     titulo: "💐 Campanha Dia das Mães",
     periodo: "25 de Abril a 11 de Maio de 2026",
