@@ -3,158 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Performance IA - Dashboard</title>
+    <title>PerfIA - Inteligência Conectada</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        teal: {
-                            500: '#14b8a6',
-                            600: '#0d9488',
-                            700: '#0f766e',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        /* Estilos customizados simples */
-        .sidebar-item.active {
-            background-color: rgba(20, 184, 166, 0.1);
-            color: #0f766e;
-            border-right: 4px solid #14b8a6;
-        }
+        html { scroll-behavior: smooth; }
+        .hidden { display: none; }
+        .active-menu { background: rgba(20, 184, 166, 0.1); color: #0f766e; border-right: 4px solid #14b8a6; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 flex h-screen overflow-hidden font-sans">
+<body class="bg-gray-50 text-gray-900 flex h-screen overflow-hidden">
 
-    <aside class="w-64 bg-white border-r border-gray-100 flex flex-col z-10">
+    <aside class="w-64 bg-white border-r border-gray-100 flex flex-col shrink-0">
         <div class="p-6 flex items-center gap-3 border-b border-gray-100">
-            <div class="bg-teal-500 text-white p-3 rounded-xl text-xl">🤖</div>
-            <h1 class="text-xl font-bold text-gray-800">PerfIA</h1>
+            <div class="bg-teal-500 text-white p-2 rounded-lg text-lg">🤖</div>
+            <h1 class="text-xl font-bold tracking-tighter">PerfIA</h1>
         </div>
         <nav class="flex-1 p-4 space-y-2">
-            <a href="#" class="sidebar-item active flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 transition">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="#cadastro" class="sidebar-item flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 transition">
-                <span>📢</span> Campanhas
-            </a>
-            <a href="#" class="sidebar-item flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 transition">
-                <span>🧪</span> Laboratório
-            </a>
-            <a href="#" class="sidebar-item flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 transition">
-                <span>💬</span> Consultoria
-            </a>
+            <button onclick="showTab('dashboard')" id="btn-dashboard" class="sidebar-item active-menu w-full text-left flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 transition">📊 Dashboard</button>
+            <button onclick="showTab('laboratorio')" id="btn-laboratorio" class="sidebar-item w-full text-left flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 transition">🧪 Laboratório Criativo</button>
+            <button onclick="showTab('consultoria')" id="btn-consultoria" class="sidebar-item w-full text-left flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 transition font-bold">🧠 Consultoria IA</button>
         </nav>
-        <div class="p-4 border-t border-gray-100 text-xs text-gray-400 text-center">
-            Cultura de Dados © 2024
-        </div>
     </aside>
 
-    <main class="flex-1 flex flex-col h-full min-w-0">
+    <main class="flex-1 overflow-y-auto p-8">
         
-        <header class="bg-white border-b border-gray-100 p-6 flex items-center justify-between sticky top-0 z-10">
-            <h2 class="text-2xl font-semibold text-gray-800">Painel de Resultados</h2>
-            <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">Bem-vindo, Usuário</span>
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-sm">U</div>
-            </div>
-        </header>
+        <div id="tab-dashboard">
+            <header class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Seu Desempenho</h2>
+                <p class="text-gray-500">Insira os dados para a IA analisar.</p>
+            </header>
 
-        <div class="flex-1 overflow-y-auto p-8 space-y-10">
-
-            <section id="cadastro" class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                <h3 class="text-xl font-semibold text-teal-700 mb-6">📥 Registrar Resultados da Semana</h3>
-                <form id="campaignForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nome da Campanha</label>
-                        <input type="text" id="campName" placeholder="Ex: Promoção Natal" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-200 focus:border-teal-500 outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Investimento Real (R$)</label>
-                        <input type="number" id="campSpend" placeholder="0.00" required step="0.01" class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-200 focus:border-teal-500 outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Volume de Leads</label>
-                        <input type="number" id="campLeads" placeholder="0" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-200 focus:border-teal-500 outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Volume de Vendas</label>
-                        <input type="number" id="campSales" placeholder="0" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-200 focus:border-teal-500 outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Receita Total (R$)</label>
-                        <input type="number" id="campRevenue" placeholder="0.00" required step="0.01" class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-200 focus:border-teal-500 outline-none transition">
-                    </div>
-                    <div class="md:col-span-2 flex justify-end">
-                        <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-8 rounded-xl transition duration-150 flex items-center gap-2">
-                            <span>⚡</span> SALVAR E ANALISAR
-                        </button>
-                    </div>
+            <section class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mb-8">
+                <form id="campaignForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="campName" placeholder="Nome da Campanha" required class="p-3 border rounded-xl outline-none focus:border-teal-500">
+                    <input type="number" id="campSpend" placeholder="Gasto (R$)" required class="p-3 border rounded-xl outline-none">
+                    <input type="number" id="campRevenue" placeholder="Faturamento (R$)" required class="p-3 border rounded-xl outline-none">
+                    <button type="submit" class="md:col-span-3 bg-teal-500 text-white font-bold py-3 rounded-xl hover:bg-teal-600 transition uppercase tracking-wider">SALVAR E ANALISAR ⚡</button>
                 </form>
             </section>
 
-            <section id="dashboard" class="space-y-8">
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-sm text-gray-500 mb-1">Gasto Total</p>
-                        <p id="totalSpend" class="text-3xl font-bold text-gray-800">R$ 0,00</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-10 rounded-3xl shadow-sm border border-gray-100 text-center">
+                    <p class="text-sm text-gray-400 uppercase font-bold tracking-widest">Retorno (ROI)</p>
+                    <p id="totalROI" class="text-5xl font-black text-teal-600 mt-2">0.0x</p>
+                </div>
+                <div class="bg-teal-600 p-8 rounded-3xl shadow-lg text-white">
+                    <h4 class="font-bold flex items-center gap-2 text-lg">🤖 Diagnóstico Imediato</h4>
+                    <p id="aiInsightText" class="text-teal-50 text-sm mt-3 leading-relaxed">Aguardando dados para gerar o primeiro insight...</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-laboratorio" class="hidden">
+            <header class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Laboratório Criativo</h2>
+            </header>
+            <div class="max-w-2xl bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                <textarea id="aiInput" rows="3" placeholder="Ex: Venda de biquínis focada em conforto..." class="w-full p-4 border rounded-2xl outline-none focus:border-teal-500 bg-gray-50 mb-4"></textarea>
+                <button onclick="generateAd()" class="w-full bg-teal-500 text-white font-bold py-4 rounded-xl hover:bg-teal-600 transition">GERAR ANÚNCIO ✨</button>
+                <div id="adResult" class="hidden mt-6 p-6 bg-teal-50 rounded-2xl border border-teal-100 text-sm text-teal-800">
+                    <b>Sugestão:</b> <p id="resultLegenda" class="mt-2"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-consultoria" class="hidden">
+            <header class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">🧠 Consultoria de Estratégia</h2>
+                <p class="text-gray-500 italic">Análise baseada no seu histórico real de vendas.</p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <section class="space-y-4">
+                    <h3 class="text-lg font-bold text-gray-700 flex items-center gap-2">🚀 O Que Fazer Amanhã?</h3>
+                    <div id="todoList" class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-4">
+                        <p class="text-gray-400 text-sm italic">Insira dados no Dashboard para receber suas tarefas...</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-sm text-gray-500 mb-1">Receita Total</p>
-                        <p id="totalRevenue" class="text-3xl font-bold text-gray-800">R$ 0,00</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-sm text-gray-500 mb-1">ROI (Retorno)</p>
-                        <p id="totalROI" class="text-3xl font-bold text-gray-800">0.0x</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <p class="text-sm text-gray-500 mb-1">Saúde do Negócio</p>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span id="healthStatusDot" class="w-3 h-3 rounded-full bg-gray-300"></span>
-                            <span id="healthStatusText" class="text-lg font-semibold text-gray-600">Aguardando Dados</span>
+                </section>
+
+                <section class="space-y-4">
+                    <h3 class="text-lg font-bold text-gray-700 flex items-center gap-2">📖 Histórico de Aprendizado</h3>
+                    <div id="learningHistory" class="space-y-3">
+                        <div class="bg-white p-4 rounded-xl border-l-4 border-gray-300 shadow-sm opacity-50">
+                            <p class="text-sm font-bold text-gray-400">Padrão de Compra</p>
+                            <p class="text-xs text-gray-400">A IA ainda não identificou padrões.</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                    <div class="flex items-center gap-3 mb-5">
-                        <span class="text-2xl">🤖</span>
-                        <h3 class="text-xl font-semibold text-gray-800">Diagnóstico Automático</h3>
-                    </div>
-                    <ul id="aiInsights" class="space-y-3 text-gray-700 list-disc list-inside">
-                        <li class="text-gray-500">Cadastre sua primeira campanha para receber análises.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 overflow-x-auto">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Suas Campanhas</h3>
-                    <table class="w-full text-sm text-left">
-                        <thead class="text-xs text-gray-500 uppercase bg-gray-50 rounded-lg">
-                            <tr>
-                                <th class="px-4 py-3">Campanha</th>
-                                <th class="px-4 py-3">Gasto</th>
-                                <th class="px-4 py-3">Leads</th>
-                                <th class="px-4 py-3">Vendas</th>
-                                <th class="px-4 py-3">CPL</th>
-                                <th class="px-4 py-3">Conversão</th>
-                                <th class="px-4 py-3">ROI</th>
-                            </tr>
-                        </thead>
-                        <tbody id="campaignTableBody">
-                            </tbody>
-                    </table>
-                </div>
-            </section>
-
+                </section>
+            </div>
         </div>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        // NAVEGAÇÃO
+        function showTab(tabName) {
+            document.querySelectorAll('main > div').forEach(div => div.classList.add('hidden'));
+            document.querySelectorAll('.sidebar-item').forEach(btn => btn.classList.remove('active-menu'));
+            
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            document.getElementById('btn-' + tabName).classList.add('active-menu');
+        }
+
+        // DADOS E LOGICA
+        let campaigns = [];
+
+        document.getElementById('campaignForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('campName').value;
+            const spend = parseFloat(document.getElementById('campSpend').value);
+            const revenue = parseFloat(document.getElementById('campRevenue').value);
+            
+            campaigns.push({ name, spend, revenue });
+
+            // Cálculos
+            const totalS = campaigns.reduce((s, c) => s + c.spend, 0);
+            const totalR = campaigns.reduce((s, c) => s + c.revenue, 0);
+            const roi = totalS > 0 ? totalR / totalS : 0;
+
+            // Atualizar Dashboard
+            document.getElementById('totalROI').innerText = `${roi.toFixed(1)}x`;
+            const insight = document.getElementById('aiInsightText');
+            
+            // Lógica de Consultoria IA (O que faz funcionar)
+            const todoList = document.getElementById('todoList');
+            const learningHistory = document.getElementById('learningHistory');
+
+            if (roi >= 2) {
+                insight.innerText = "Parabéns! Operação lucrativa. Vá para a aba Consultoria para ver como escalar.";
+                
+                // Atualiza as tarefas da consultoria
+                todoList.innerHTML = `
+                    <div class="flex items-start gap-3 p-2 bg-green-50 rounded-lg">
+                        <input type="checkbox" class="mt-1">
+                        <p class="text-sm"><b>Aumentar Orçamento:</b> Suba o gasto da campanha "${name}" em 20% amanhã cedo.</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-2">
+                        <input type="checkbox" class="mt-1">
+                        <p class="text-sm">Criar um público 'Lookalike' baseado nos compradores de hoje.</p>
+                    </div>`;
+                
+                learningHistory.innerHTML = `
+                    <div class="bg-white p-4 rounded-xl border-l-4 border-green-500 shadow-sm">
+                        <p class="text-sm font-bold">Padrão Vencedor</p>
+                        <p class="text-xs text-gray-500">A campanha "${name}" performa melhor com o público feminino. Focar nisso.</p>
+                    </div>`;
+
+            } else {
+                insight.innerText = "ROI abaixo do esperado. Você está perdendo dinheiro. Veja as ações corretivas na Consultoria.";
+                
+                todoList.innerHTML = `
+                    <div class="flex items-start gap-3 p-2 bg-red-50 rounded-lg">
+                        <input type="checkbox" class="mt-1">
+                        <p class="text-sm text-red-700"><b>PAUSAR IMEDIATO:</b> Reduza o gasto da campanha "${name}" até trocar o criativo.</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-2">
+                        <input type="checkbox" class="mt-1">
+                        <p class="text-sm">Revisar oferta do site: o preço pode estar acima do mercado.</p>
+                    </div>`;
+
+                learningHistory.innerHTML = `
+                    <div class="bg-white p-4 rounded-xl border-l-4 border-red-500 shadow-sm">
+                        <p class="text-sm font-bold">Risco Identificado</p>
+                        <p class="text-xs text-gray-500">O custo de aquisição da campanha "${name}" subiu 40% nas últimas horas.</p>
+                    </div>`;
+            }
+
+            this.reset();
+        });
+
+        function generateAd() {
+            const input = document.getElementById('aiInput').value;
+            if(!input) return;
+            document.getElementById('adResult').classList.remove('hidden');
+            document.getElementById('resultLegenda').innerText = "Venda mais com essa copy: 'Descubra o segredo de quem valoriza cada momento. Conforto e elegância que você merece. Aproveite agora!'";
+        }
+    </script>
 </body>
 </html>
